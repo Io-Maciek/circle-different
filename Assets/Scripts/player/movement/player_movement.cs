@@ -18,14 +18,16 @@ public class player_movement : MonoBehaviour
     float ColliderAdderDetection = 0.05f;
 
     bool _move_is_being_handle = false;
+    PlayerObjectController playerObjectController;
 
 
     private void Start()
     {
+        playerObjectController = GetComponent<camera_movement>().player.GetComponent<PlayerObjectController>();
         player = GetComponent<camera_movement>().player;
 
         //rb = GetComponent<Rigidbody2D>();
-        _SIZE = player.GetComponent<SpriteRenderer>().bounds.size.x;
+        _SIZE = playerObjectController.Circle.GetComponent<SpriteRenderer>().bounds.size.x;
         _NEXT_MOVE_TIME = 0.0f;
 
     }
