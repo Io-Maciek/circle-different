@@ -13,6 +13,15 @@ public class MainUI : MonoBehaviour
     {
         BtnQuitGame.onClick.AddListener(_quit_game);
         BtnOpenOptionsScreen.onClick.AddListener(_open_options);
+
+        OptionsSetup();
+    }
+
+
+    void OptionsSetup()
+    {
+        var options = new Options();
+        options.Apply();
     }
 
     void _quit_game()
