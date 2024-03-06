@@ -1262,7 +1262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133d3625a4acf5b48b79128264ab1fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Move_After_Seconds: 0.15
+  Move_After_Seconds: 0.25
   MoveIsBlocked: 0
 --- !u!4 &7583344559082061593
 Transform:
