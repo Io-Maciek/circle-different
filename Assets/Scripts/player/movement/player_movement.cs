@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class player_movement : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class player_movement : MonoBehaviour
     bool _move_is_being_handle = false;
     PlayerObjectController playerObjectController;
 
+    public bool MoveIsBlocked = false;
+
 
     private void Start()
     {
@@ -34,33 +37,76 @@ public class player_movement : MonoBehaviour
 
     private void Update()
     {
-        if (!_move_is_being_handle && Time.time >= _NEXT_MOVE_TIME)
+        if (!_move_is_being_handle)// && Time.time >= _NEXT_MOVE_TIME)
         {
-            _move_is_being_handle = true;
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
 
-
             if ((horizontal != 0.0f || vertical != 0.0f) && (horizontal==0.0f || vertical == 0.0f))
             {
+                _move_is_being_handle = true;
                 MakeMove(horizontal, vertical);
             }
-
-            _move_is_being_handle = false;
         }
+/*        else
+        {
+            if (Time.time - _anim_start < _anim_duration)
+            {
+                player.transform.position = Vector3.Lerp(_anim_start_position, _move_target, (Time.time - _anim_start) / _anim_duration);
+            }
+            else
+            {
+                player.transform.position = _move_target;
+                _move_is_being_handle = false;
+            }
+        }*/
     }
+
+
+
+
+    private IEnumerator MoveToTarget(Vector3 target)
+    {
+        var now = Time.time;
+
+        _NEXT_MOVE_TIME = now + Move_After_Seconds;
+        Vector3 startPosition = player.transform.position;
+        float startTime = now;
+        float duration = _NEXT_MOVE_TIME - startTime;
+
+        while (Time.time - startTime < duration)
+        {
+            player.transform.position = Vector3.Lerp(startPosition, target, (Time.time - startTime) / duration);
+            yield return new WaitForEndOfFrame();
+        }
+
+        // Ensure final position
+        player.transform.position = target;
+        _move_is_being_handle = false;
+    }
+
+/*    public Vector3 _move_target;
+    public Vector3 _anim_start_position;
+
+    public float _anim_start;
+    public float _anim_duration;*/
 
     private void MakeMove(float horizontal, float vertical)
     {
         var positions = CheckMovementCollision(horizontal, vertical);
 
-
-        _NEXT_MOVE_TIME = Time.time + Move_After_Seconds;
-
         var h = Mathf.Round(player.transform.position.x + _SIZE * positions.Item1);
         var v = Mathf.Round(player.transform.position.y + _SIZE * positions.Item2);
 
         Vector3 target = new Vector3(h,v, player.transform.position.z);
+/*        _move_target = target;
+
+        _anim_start = Time.time;
+        _NEXT_MOVE_TIME = _anim_start + Move_After_Seconds;
+        _anim_duration= _NEXT_MOVE_TIME - _anim_start;
+        _anim_start_position = player.transform.position;
+
+        _move_is_being_handle = true;*/
         StartCoroutine(MoveToTarget(target));
     }
 
@@ -110,10 +156,12 @@ public class player_movement : MonoBehaviour
 
         if (ray.collider == null)
         {
+            MoveIsBlocked = false;
             return true;
         }
         else
         {
+            MoveIsBlocked = true;
 #if DEBUG
             Debug.DrawRay(StartVec2, DirectionVec2, Color.red, .5f);
             //Debug.Log(ray.collider);
@@ -121,20 +169,4 @@ public class player_movement : MonoBehaviour
             return false;
         }
     }
-
-    private IEnumerator MoveToTarget(Vector3 target)
-    {
-        Vector3 startPosition = player.transform.position;
-        float startTime = Time.time;
-        float duration = _NEXT_MOVE_TIME - startTime;
-
-        while (Time.time - startTime < duration)
-        {
-            player.transform.position = Vector3.Lerp(startPosition, target, (Time.time - startTime) / duration);
-            yield return null;
-        }
-
-        player.transform.position = target;
-    }
-
 }

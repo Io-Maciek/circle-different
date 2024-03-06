@@ -20,6 +20,8 @@ public class camera_movement : MonoBehaviour
     private float StartedMovingTime = 0.0f;
     bool is_moving = false;
 
+    public bool TurnOnZooming = false;
+
     private void Start()
     {
         DefaultZoomIn = camera.GetComponent<Camera>().orthographicSize;
@@ -30,7 +32,9 @@ public class camera_movement : MonoBehaviour
         Vector2 player_position = player.transform.position;
         
         camera.transform.position = Vector2.Lerp(camera.transform.position, player_position, smooth_speed * Time.deltaTime);
-        CameraHandleZoom();
+
+        if(TurnOnZooming)
+            CameraHandleZoom();
     }
 
     private void CameraHandleZoom()
@@ -38,7 +42,8 @@ public class camera_movement : MonoBehaviour
         float start_zoom = camera.GetComponent<Camera>().orthographicSize;
         float out_zoom = start_zoom;
 
-        if (Input.GetAxisRaw("Horizontal") == 0.0f & Input.GetAxisRaw("Vertical") == 0.0f) // not moving
+        if (GetComponent<player_movement>().MoveIsBlocked || (
+            Input.GetAxisRaw("Horizontal") == 0.0f & Input.GetAxisRaw("Vertical") == 0.0f)) // not moving
         {
             if (is_moving)
             {
