@@ -24,6 +24,7 @@ public class OptionsScript : MonoBehaviour
         OptionsSetup();
     }
 
+
     private void _resolution_changed(int resolution_index)
     {
         Debug.Log(DropdownResolution.options[resolution_index].text);

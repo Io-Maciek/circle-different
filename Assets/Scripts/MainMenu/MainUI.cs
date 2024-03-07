@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MainUI : MonoBehaviour
 {
+    public Button BtnStartNewGame;
+
     public Button BtnQuitGame;
     public Button BtnOpenOptionsScreen;
 
@@ -13,10 +17,15 @@ public class MainUI : MonoBehaviour
     {
         BtnQuitGame.onClick.AddListener(_quit_game);
         BtnOpenOptionsScreen.onClick.AddListener(_open_options);
+        BtnStartNewGame.onClick.AddListener(_new_game);
 
         OptionsSetup();
     }
 
+    private void _new_game()
+    {
+        SceneManager.LoadSceneAsync(1);
+    }
 
     void OptionsSetup()
     {

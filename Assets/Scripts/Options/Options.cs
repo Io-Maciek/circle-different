@@ -35,7 +35,6 @@ public class Options
     {
         FullScreenMode fullscreen_mode;
         var resolutions = ScreenResolution.ResolutionFromString(Resolution);
-        Debug.Log($"R: {resolutions}\t\tF: {IsFullScreen}");
 
         if (IsFullScreen)
         {
@@ -45,8 +44,6 @@ public class Options
         {
             fullscreen_mode = FullScreenMode.Windowed;
         }
-
-        Debug.Log(IsFullScreen);
 
         Screen.SetResolution(resolutions.Item1, resolutions.Item2, fullscreen_mode);
     }
