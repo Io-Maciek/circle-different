@@ -12,6 +12,7 @@ public class MainUI : MonoBehaviour
     public Button BtnOpenOptionsScreen;
 
     public GameObject OptionsScreen;
+    public new AudioSource audio;
 
     void Start()
     {
@@ -30,6 +31,7 @@ public class MainUI : MonoBehaviour
     void OptionsSetup()
     {
         var options = new Options();
+        audio.volume = options.MasterSound;
         options.Apply();
     }
 

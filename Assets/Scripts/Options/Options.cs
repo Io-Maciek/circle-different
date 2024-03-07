@@ -7,6 +7,7 @@ public class Options
 {
     const string _FULLSCREEN = "full_screen_player_prefs";
     const string _RESOLUTION = "resolution_player_prefs";
+    const string _MASTER_SOUND = "master_sound_player_prefs";
 
     public bool IsFullScreen { 
         get 
@@ -27,6 +28,18 @@ public class Options
         set
         {
             PlayerPrefs.SetString(_RESOLUTION, value);
+        }
+    }
+
+    public float MasterSound
+    {
+        get
+        {
+            return PlayerPrefs.GetFloat(_MASTER_SOUND, 1.0f);
+        }
+        set
+        {
+            PlayerPrefs.SetFloat(_MASTER_SOUND, value);
         }
     }
 

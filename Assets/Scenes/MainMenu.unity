@@ -10883,6 +10883,7 @@ MonoBehaviour:
   BtnQuitGame: {fileID: 1106311813}
   BtnOpenOptionsScreen: {fileID: 791446248}
   OptionsScreen: {fileID: 8459340801793186325}
+  audio: {fileID: 1055193362}
 --- !u!225 &2068451562
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -10928,6 +10929,14 @@ PrefabInstance:
       propertyPath: MenuScreen
       value: 
       objectReference: {fileID: 2068451559}
+    - target: {fileID: 1409098800677951974, guid: 254cc5432e1cc6c44a782335ac463b45, type: 3}
+      propertyPath: audioSource.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409098800677951974, guid: 254cc5432e1cc6c44a782335ac463b45, type: 3}
+      propertyPath: audioSource.Array.data[0]
+      value: 
+      objectReference: {fileID: 1055193362}
     - target: {fileID: 3532109775738526871, guid: 254cc5432e1cc6c44a782335ac463b45, type: 3}
       propertyPath: m_Name
       value: OptionScreen

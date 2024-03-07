@@ -12,18 +12,26 @@ public class OptionsScript : MonoBehaviour
     public Button BtnGoBack;
     public Toggle ToggleFullScreen;
     public Dropdown DropdownResolution;
+    public Slider SliderMasterSound;
 
     Options _options = new Options();
+
+    public List<AudioSource> audioSource;
 
     void Start()
     {
         BtnGoBack.onClick.AddListener(_close_options);
         ToggleFullScreen.onValueChanged.AddListener(_full_screen_changed);
         DropdownResolution.onValueChanged.AddListener(_resolution_changed);
+        SliderMasterSound.onValueChanged.AddListener(_master_sound_changed);
 
         OptionsSetup();
     }
 
+    private void _master_sound_changed(float sound_level)
+    {
+        _options.MasterSound = sound_level;
+    }
 
     private void _resolution_changed(int resolution_index)
     {
@@ -53,12 +61,20 @@ public class OptionsScript : MonoBehaviour
         }
 
         DropdownResolution.value = index_of_resolution;
+
+        SliderMasterSound.value = _options.MasterSound;
     }
 
     private void _close_options()
     {
         _options.Apply();
-        if(MenuScreen != null)
+
+        foreach (var audio_s in audioSource)
+        {
+            audio_s.volume = _options.MasterSound;
+        }
+
+        if (MenuScreen != null)
         {
             MenuScreen.SetActive(true);
         }
