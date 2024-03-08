@@ -15,6 +15,9 @@ public class MoveTowardsPlayer : MonoBehaviour
 
     bool _reached_home = true;
 
+    public float SecondsTimeToWaitAfterLoosingPlayer = 5.0f;
+    private float _timeToGoHome = 0.0f;
+
 
     void Start()
     {
@@ -23,34 +26,49 @@ public class MoveTowardsPlayer : MonoBehaviour
         rigid_body = GetComponent<Rigidbody2D>();
     }
 
+
+    Vector2 _last_known_player_pos;
+
     // Update is called once per frame
     void Update()
     {
         try
         {
-            float distance = Vector3.Distance(transform.position, player.transform.position);
+            var _player_pos = player.transform.position;
+            float distance = Vector3.Distance(transform.position, _player_pos);
             if (distance < 8.0f && player_ability.IsCircle)
             {
-                IsAgressive = true;
+                _last_known_player_pos = _player_pos;
+                if (!IsAgressive)
+                {
+                    IsAgressive = true;
+                }
             }
-            else
+            else if (IsAgressive)
             {
+                _timeToGoHome = Time.time + SecondsTimeToWaitAfterLoosingPlayer;
                 IsAgressive = false;
             }
         }
         catch (MissingReferenceException)
         {
-            IsAgressive = false;
+            if (IsAgressive)
+                IsAgressive = false;
         }
     }
 
     private void FixedUpdate()
     {
+        var _now_time = Time.time; ;
         if (IsAgressive)
         {
             ChasePlayer();
+        }else if(_now_time < _timeToGoHome)
+        {
+            Debug.Log("SEARCH RANDOM");
+            SearchLastKnownPosition();
         }
-        else if(!_reached_home)
+        else if (!_reached_home)
         {
             GoToSpawn();
         }
@@ -60,25 +78,41 @@ public class MoveTowardsPlayer : MonoBehaviour
         }
     }
 
+    private void SearchLastKnownPosition()
+    {
+        if (AchivedPosition(_last_known_player_pos, 1.25f))
+        {
+            if(rigid_body.velocity != (Vector2)Vector3.zero)
+                rigid_body.velocity = Vector3.zero;
+        }
+        else
+        {
+            TravelTo(_last_known_player_pos);
+        }
+    }
+
     private void ChasePlayer()
     {
         _reached_home = false;
-        TravelTo(player.transform.position);
+        TravelTo(_last_known_player_pos);
     }
 
     private void GoToSpawn()
     {
-        float distance_to_spawn = Vector3.Distance(transform.position, RestDefaultPosition);
-        if (distance_to_spawn > 1.25f)
+        if (AchivedPosition(RestDefaultPosition))
         {
-            TravelTo(RestDefaultPosition);
+            if (!_reached_home)
+                _reached_home = true;
         }
         else
         {
-            _reached_home = true;
+            TravelTo(RestDefaultPosition);
         }
     }
-
+    bool AchivedPosition(Vector2 target, float distance = 1.25f)
+    {
+        return Vector3.Distance(transform.position, target) < distance;
+    }
 
     void TravelTo(Vector2 target)
     {
@@ -88,7 +122,7 @@ public class MoveTowardsPlayer : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject == player && player_ability.IsCircle)
+        if (collision.gameObject == player && player_ability.IsCircle)
         {
             //TODO show UI to load scene or exit
             player.transform.GetComponentInParent<ActivateDeath>().Die();
