@@ -65,7 +65,6 @@ public class MoveTowardsPlayer : MonoBehaviour
             ChasePlayer();
         }else if(_now_time < _timeToGoHome)
         {
-            Debug.Log("SEARCH RANDOM");
             SearchLastKnownPosition();
         }
         else if (!_reached_home)

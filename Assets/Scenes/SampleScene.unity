@@ -415,8 +415,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5917585604429888213}
   - {fileID: 1841043836}
+  - {fileID: 5917585604429888213}
   m_Father: {fileID: 7583344559082061593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &51144635
@@ -744,6 +744,7 @@ MonoBehaviour:
   player: {fileID: 51144633}
   IsAgressive: 0
   runSpeed: 3
+  SecondsTimeToWaitAfterLoosingPlayer: 5
 --- !u!1 &205460672 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3532109775738526871, guid: 254cc5432e1cc6c44a782335ac463b45, type: 3}
