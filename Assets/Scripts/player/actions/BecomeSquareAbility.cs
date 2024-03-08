@@ -75,24 +75,10 @@ public class BecomeSquareAbility : MonoBehaviour
 
     void Change(bool ShouldBecomeCircle)
     {
-        playerObjectController.animator.SetBool("IsCircle", !ShouldBecomeCircle);
-        if (ShouldBecomeCircle)
+        try
         {
-            
-            /*playerObjectController.Square.SetActive(true);
-            playerObjectController.Circle.SetActive(false);
-
-            playerObjectController.Square.transform.localScale = Vector3.one;
-            playerObjectController.Circle.transform.localScale = Vector3.zero;*/
-        }
-        else
-        {
-            /*playerObjectController.Square.SetActive(false);
-            playerObjectController.Circle.SetActive(true);
-
-            playerObjectController.Square.transform.localScale = Vector3.zero;
-            playerObjectController.Circle.transform.localScale = Vector3.one;*/
-        }
+            playerObjectController.animator.SetBool("IsCircle", !ShouldBecomeCircle);
+        }catch(MissingReferenceException) { }
     }
 
     void UpdateMeterUI()

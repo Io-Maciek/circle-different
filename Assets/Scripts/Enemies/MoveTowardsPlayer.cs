@@ -91,7 +91,7 @@ public class MoveTowardsPlayer : MonoBehaviour
         if(collision.gameObject == player && player_ability.IsCircle)
         {
             //TODO show UI to load scene or exit
-            Destroy(player);
+            player.transform.GetComponentInParent<ActivateDeath>().Die();
         }
     }
 }

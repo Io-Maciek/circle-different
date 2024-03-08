@@ -35,12 +35,15 @@ public class BetterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Mathf.Abs(horizontal) == 1 && Mathf.Abs(vertical) == 1) // Check for diagonal movement
+        try
         {
-            horizontal *= 0.7f;
-            vertical *= 0.7f;
-        }
+            if (Mathf.Abs(horizontal) == 1 && Mathf.Abs(vertical) == 1) // Check for diagonal movement
+            {
+                horizontal *= 0.7f;
+                vertical *= 0.7f;
+            }
 
-        rigid_body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+            rigid_body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        }catch(MissingReferenceException) { }
     }
 }

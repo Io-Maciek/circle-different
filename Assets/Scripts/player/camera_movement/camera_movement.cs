@@ -10,15 +10,26 @@ public class camera_movement : MonoBehaviour
 
     public float smooth_speed =  10.0f;
 
+    Vector2 _last_player_pos;
+
 
     private void Start()
     {
+        _last_player_pos = player.transform.position;
+        camera.transform.position = _last_player_pos;
+    }
+
+    private void Update()
+    {
+        try
+        {
+            _last_player_pos = player.transform.position;
+        }
+        catch (MissingReferenceException) { }
     }
 
     private void FixedUpdate()
     {
-        Vector2 player_position = player.transform.position;
-
-        camera.transform.position = Vector2.Lerp(camera.transform.position, player_position, smooth_speed);
+        camera.transform.position = Vector2.Lerp(camera.transform.position, _last_player_pos, smooth_speed);
     }
 }
