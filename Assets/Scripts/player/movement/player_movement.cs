@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
+[Obsolete("Use BetterMovement class")]
 public class player_movement : MonoBehaviour
 {
     //Rigidbody2D rb;
