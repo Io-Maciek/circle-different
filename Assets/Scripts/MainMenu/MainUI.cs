@@ -16,7 +16,7 @@ public class MainUI : MonoBehaviour
     public GameObject OptionsScreen;
     public GameObject AboutScreen;
     public GameObject SavesScreen;
-    public AudioSource _audio;
+    public List<AudioSource> _audios;
 
     void Start()
     {
@@ -54,7 +54,10 @@ public class MainUI : MonoBehaviour
     void OptionsSetup()
     {
         var options = new Options();
-        _audio.volume = options.MasterSound;
+        foreach(var audio  in _audios)
+        {
+            audio.volume = options.MasterSound;
+        }
         options.Apply();
     }
 

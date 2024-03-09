@@ -17,6 +17,7 @@ public class OptionsScript : MonoBehaviour
     Options _options = new Options();
 
     public List<AudioSource> audioSource;
+    public List<float> audioSourceDefaultValues;
 
     void Start()
     {
@@ -69,9 +70,14 @@ public class OptionsScript : MonoBehaviour
     {
         _options.Apply();
 
-        foreach (var audio_s in audioSource)
+        for (int i = 0; i < audioSource.Count; i++)
         {
-            audio_s.volume = _options.MasterSound;
+            try
+            {
+                audioSource[i].volume = _options.MasterSound * audioSourceDefaultValues[i];
+            }catch (Exception) { 
+                audioSource[i].volume = _options.MasterSound;
+            }
         }
 
         if (MenuScreen != null)
