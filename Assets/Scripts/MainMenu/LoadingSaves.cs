@@ -14,11 +14,12 @@ public class LoadingSaves : MonoBehaviour
     public Game[] SavedGames = new Game[3] { null, null,null};
 
 
-    public float NextCheckTime = 0.0f;
+    float NextCheckTime = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        SaveNumber._GAME_SAVE = null;
         CheckDirectoryAndSaves();
     }
 
@@ -43,7 +44,7 @@ public class LoadingSaves : MonoBehaviour
         {
             BtnLoadGame.GetComponent<Button>().interactable = true;
         }
-        NextCheckTime = Time.time + 10.0f;
+        NextCheckTime = Time.time + 5.0f;
     }
 
 
@@ -73,7 +74,7 @@ public class LoadingSaves : MonoBehaviour
         try
         {
             Game saved_game = IoFile.ReadFromString<Game>(File.ReadAllText(save_file));
-            saved_game.Name = $"Save {saveIndex}";
+            //saved_game.Name = $"Save {saveIndex}";
             SavedGames[saveIndex] = saved_game;
         }
         catch (Exception ex)

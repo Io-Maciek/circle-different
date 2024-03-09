@@ -10,6 +10,7 @@ public class PlayerObjectController : MonoBehaviour
     [System.NonSerialized]
     public Animator animator;
 
+
     private void Start()
     {
         Circle.SetActive(true);
