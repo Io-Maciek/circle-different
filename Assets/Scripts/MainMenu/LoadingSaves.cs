@@ -37,12 +37,10 @@ public class LoadingSaves : MonoBehaviour
 
         if (noneSavesExist)
         {
-            Debug.Log("No saves. Button stays inactive.");
             BtnLoadGame.GetComponent<Button>().interactable = false;
         }
         else
         {
-            Debug.Log("Save found. Button becomes active!");
             BtnLoadGame.GetComponent<Button>().interactable = true;
         }
         NextCheckTime = Time.time + 10.0f;
@@ -51,34 +49,23 @@ public class LoadingSaves : MonoBehaviour
 
     private string CheckExistanceOfGameDirectory()
     {
-        Debug.Log("Checking Directory...");
         var docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         var game_dir = Path.Combine(docs, "CirclingDifferent");
 
         if (!Directory.Exists(game_dir))
         {
-            Debug.Log("Created!");
-
             Directory.CreateDirectory(game_dir);
         }
-        else
-        {
-            Debug.Log("OK.");
-        }
-
 
         return game_dir;
     }
 
     private bool CheckExistanceOfSaveFile(int saveIndex, string game_dir_path)
     {
-        Debug.Log($"Checking save {saveIndex}...");
-
         var save_file = Path.Combine(game_dir_path, $"save{saveIndex}.io");
 
         if (!File.Exists(save_file))
         {
-            Debug.Log("No such save. FALSE");
             return false;
         }
 
@@ -88,7 +75,6 @@ public class LoadingSaves : MonoBehaviour
             Game saved_game = IoFile.ReadFromString<Game>(File.ReadAllText(save_file));
             saved_game.Name = $"Save {saveIndex}";
             SavedGames[saveIndex] = saved_game;
-            Debug.Log("OK. =\t"+saved_game);
         }
         catch (Exception ex)
         {
