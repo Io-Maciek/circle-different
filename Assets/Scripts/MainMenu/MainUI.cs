@@ -10,28 +10,51 @@ public class MainUI : MonoBehaviour
 
     public Button BtnQuitGame;
     public Button BtnOpenOptionsScreen;
+    public Button BtnOpenAboutScreen;
+    public Button BtnLoadNewGame;
 
     public GameObject OptionsScreen;
-    public new AudioSource audio;
+    public GameObject AboutScreen;
+    public GameObject SavesScreen;
+    public AudioSource _audio;
 
     void Start()
     {
         BtnQuitGame.onClick.AddListener(_quit_game);
         BtnOpenOptionsScreen.onClick.AddListener(_open_options);
         BtnStartNewGame.onClick.AddListener(_new_game);
+        BtnOpenAboutScreen.onClick.AddListener(_open_about);
+        BtnLoadNewGame.onClick.AddListener(_load_game);
 
         OptionsSetup();
     }
 
+
+
+    private void _open_about()
+    {
+        AboutScreen.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
     private void _new_game()
     {
-        SceneManager.LoadSceneAsync(1);
+        SavesScreen.SetActive(true);
+        SavesScreen.GetComponent<SavesScreen>().Set(false);
+        gameObject.SetActive(false);
+    }
+
+    private void _load_game()
+    {
+        SavesScreen.SetActive(true);
+        SavesScreen.GetComponent<SavesScreen>().Set(true);
+        gameObject.SetActive(false);
     }
 
     void OptionsSetup()
     {
         var options = new Options();
-        audio.volume = options.MasterSound;
+        _audio.volume = options.MasterSound;
         options.Apply();
     }
 

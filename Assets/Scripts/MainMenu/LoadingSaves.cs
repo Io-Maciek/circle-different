@@ -11,7 +11,7 @@ public class LoadingSaves : MonoBehaviour
 {
     public GameObject BtnLoadGame;
 
-    public Game[] SavedGames = new Game[3];
+    public Game[] SavedGames = new Game[3] { null, null,null};
 
 
     public float NextCheckTime = 0.0f;
