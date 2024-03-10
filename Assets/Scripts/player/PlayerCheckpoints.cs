@@ -12,12 +12,12 @@ public class PlayerCheckpoints : MonoBehaviour
 
     GameObject player;
 
-    // Start is called before the first frame update
     void Start()
     {
         if(SaveNumber._GAME_SAVE == null)
         {
-            SaveNumber._GAME_SAVE = new Game() { SceneNumber = (uint)SceneManager.GetActiveScene().buildIndex, Name = "DebugSave 3", CheckPointNumber = 0 };
+            SaveNumber._GAME_SAVE = new Game() { SceneNumber = (uint)SceneManager.GetActiveScene().buildIndex, Name = "DebugSave.io", CheckPointNumber = 0 };
+            SaveNumber._GAME_SAVE.Save();
         }
 
         player = GetComponent<camera_movement>().player;

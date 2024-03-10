@@ -8,13 +8,14 @@ public class GamePause : MonoBehaviour
     public GameObject PauseScreen;
     public GameObject OptionsScreen;
     public GameObject DefaultScreen;
+    public GameObject Hider;
 
     bool isPaused = false;
     public bool isPressed = false;
 
     void Start()
     {
-        
+        Hider.SetActive(true);
     }
 
     void Update()

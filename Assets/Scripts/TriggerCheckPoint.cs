@@ -13,6 +13,7 @@ public class TriggerCheckPoint : MonoBehaviour
             var trigger = other.transform.parent.GetComponentInParent<PlayerCheckpoints>();
             if (trigger != null)
             {
+                other.transform.parent.GetComponentInParent<BecomeSquareAbility>().AbilityUsage = 1.0f; ;
                 trigger.CheckPointTriggerEnter(CheckPointNumber);
             }
         }

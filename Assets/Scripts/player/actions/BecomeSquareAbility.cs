@@ -12,11 +12,21 @@ public class BecomeSquareAbility : MonoBehaviour
     public bool IsCircle = true;
     public float AbilitySubtracter = 0.5f;
     public float AbilityAdder = 1.0f;
-    public float AbilityCooldown = 10.0f;
+    //public float AbilityCooldown = 10.0f;
 
-    [System.NonSerialized]
-    public float AbilityUsage = 1.0f;
-    float AbilityUsageNextTime = 0.0f;
+
+    float _ability_usage = 1.0f;
+
+    public float AbilityUsage
+    {
+        get => _ability_usage;
+        set
+        {
+            _ability_usage = value;
+            AbilitySliderMeter.value = value;
+        }
+    }
+    //float AbilityUsageNextTime = 0.0f;
 
     public Slider AbilitySliderMeter;
 
@@ -39,7 +49,7 @@ public class BecomeSquareAbility : MonoBehaviour
 
             if(AbilityUsage == 0.0f)
             {
-                AbilityUsageNextTime = Time.time + AbilityCooldown;
+                //AbilityUsageNextTime = Time.time + AbilityCooldown;
                 IsCircle = true;
                 IsPenalty = true;
             }
@@ -47,7 +57,7 @@ public class BecomeSquareAbility : MonoBehaviour
             {
                 IsCircle = false;
             }
-            UpdateMeterUI();
+            //UpdateMeterUI();
             ShowMeterUI();
         }
         else
@@ -57,7 +67,7 @@ public class BecomeSquareAbility : MonoBehaviour
             {
                 IsCircle = true;
                 AbilityUsage = Mathf.Clamp(AbilityUsage + (AbilitySubtracter * Time.deltaTime), 0.0f, 1.0f);
-                UpdateMeterUI();
+                //UpdateMeterUI();
             }
             else 
             {

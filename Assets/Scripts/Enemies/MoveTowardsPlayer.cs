@@ -10,7 +10,19 @@ public class MoveTowardsPlayer : MonoBehaviour
     Rigidbody2D rigid_body;
 
     Vector2 RestDefaultPosition;
-    public bool IsAgressive = false;
+    Animator _animator;
+
+    bool _is_agressive = false;
+    public bool IsAgressive
+    {
+        get => _is_agressive;
+        set
+        {
+            _is_agressive=value;
+            _animator.SetBool("IsChillin",!value);
+        }
+    }
+        
     public float runSpeed = 1.0f;
 
     bool _reached_home = true;
@@ -24,6 +36,7 @@ public class MoveTowardsPlayer : MonoBehaviour
         player_ability = player.GetComponentInParent<BecomeSquareAbility>();
         RestDefaultPosition = transform.position;
         rigid_body = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
 
@@ -59,13 +72,14 @@ public class MoveTowardsPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var _now_time = Time.time; ;
+        var _now_time = Time.time;
         if (IsAgressive)
         {
             ChasePlayer();
         }else if(_now_time < _timeToGoHome)
         {
-            SearchLastKnownPosition();
+            rigid_body.velocity = Vector3.zero;
+            //SearchLastKnownPosition();
         }
         else if (!_reached_home)
         {
@@ -123,7 +137,6 @@ public class MoveTowardsPlayer : MonoBehaviour
     {
         if (collision.gameObject == player && player_ability.IsCircle)
         {
-            //TODO show UI to load scene or exit
             player.transform.GetComponentInParent<ActivateDeath>().Die();
         }
     }
