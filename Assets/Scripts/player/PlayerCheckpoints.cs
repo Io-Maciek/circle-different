@@ -11,6 +11,7 @@ public class PlayerCheckpoints : MonoBehaviour
     public int LastCheckpointIndex = 0;
 
     GameObject player;
+    public GameObject instructions = null;
 
     void Start()
     {
@@ -23,8 +24,15 @@ public class PlayerCheckpoints : MonoBehaviour
         player = GetComponent<camera_movement>().player;
         CheckpointPosition.Insert(0, player.transform.position);
 
+        LastCheckpointIndex = SaveNumber._GAME_SAVE.CheckPointNumber;
         player.transform.position = CheckpointPosition[SaveNumber._GAME_SAVE.CheckPointNumber];
         GetComponent<camera_movement>().camera.transform.position = CheckpointPosition[SaveNumber._GAME_SAVE.CheckPointNumber];
+
+        Debug.Log(LastCheckpointIndex);
+        if(instructions != null && LastCheckpointIndex == 0)
+        {
+            instructions.SetActive(true);
+        }
     }
 
 
