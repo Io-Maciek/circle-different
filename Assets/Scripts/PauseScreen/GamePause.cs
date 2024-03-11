@@ -71,6 +71,7 @@ public class GamePause : MonoBehaviour
     public void HidePauseMenu()
     {
         Time.timeScale = 1.0f;
+        OptionsScreen.GetComponent<OptionsScript>().OptionsApply();
         OptionsScreen.SetActive(false);
         DefaultScreen.SetActive(true);
         PauseScreen.SetActive(false);

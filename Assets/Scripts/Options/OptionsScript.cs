@@ -66,7 +66,7 @@ public class OptionsScript : MonoBehaviour
         SliderMasterSound.value = _options.MasterSound;
     }
 
-    private void _close_options()
+    public void OptionsApply()
     {
         _options.Apply();
 
@@ -75,10 +75,17 @@ public class OptionsScript : MonoBehaviour
             try
             {
                 audioSource[i].volume = _options.MasterSound * audioSourceDefaultValues[i];
-            }catch (Exception) { 
+            }
+            catch (Exception)
+            {
                 audioSource[i].volume = _options.MasterSound;
             }
         }
+    }
+
+    private void _close_options()
+    {
+        OptionsApply();
 
         if (MenuScreen != null)
         {

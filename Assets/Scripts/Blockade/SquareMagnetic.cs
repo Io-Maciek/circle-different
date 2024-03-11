@@ -18,14 +18,13 @@ public class SquareMagnetic : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Vector2.Distance(player.transform.position, transform.position) <= DistanceToStartMagnetic && !player_ability.IsCircle)
+        if (Vector2.Distance(player.transform.position, transform.position) <= DistanceToStartMagnetic && !player_ability.IsCircle)
         {
-            Debug.Log("START MAGNETIC");
             rb.AddForce((player.transform.position - transform.position) * forceFactor);
         }
-        else
+        else if (rb.velocity != Vector2.zero)
         {
-            rb.velocity = Vector3.zero;
+            rb.velocity = Vector2.zero;
         }
     }
 }
