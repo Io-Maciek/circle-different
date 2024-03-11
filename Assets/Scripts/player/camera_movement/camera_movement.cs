@@ -12,6 +12,8 @@ public class camera_movement : MonoBehaviour
 
     Vector2 _last_player_pos;
 
+    public GameObject JustAudio;
+
 
     private void Start()
     {
@@ -23,6 +25,7 @@ public class camera_movement : MonoBehaviour
     {
         try
         {
+            JustAudio.transform.position = player.transform.position;
             _last_player_pos = player.transform.position;
         }
         catch (MissingReferenceException) { }

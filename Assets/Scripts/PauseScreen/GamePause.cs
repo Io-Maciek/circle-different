@@ -7,6 +7,10 @@ public class GamePause : MonoBehaviour
 {
     public GameObject PauseScreen;
     public GameObject OptionsScreen;
+
+    List<AudioSource> audioSource;
+    List<float> audioLevels;
+
     public GameObject DefaultScreen;
     public GameObject Hider;
 
@@ -16,6 +20,27 @@ public class GamePause : MonoBehaviour
     void Start()
     {
         Hider.SetActive(true);
+        audioSource = OptionsScreen.GetComponent<OptionsScript>().audioSource;
+        audioLevels = OptionsScreen.GetComponent<OptionsScript>().audioSourceDefaultValues;
+
+        OptionsApplyOnStart();
+    }
+
+
+    void OptionsApplyOnStart()
+    {
+        var _options = new Options();
+        for(int i = 0; i < audioSource.Count; i++)
+        {
+            try
+            {
+                audioSource[i].volume = _options.MasterSound * audioLevels[i];
+            }
+            catch (Exception)
+            {
+                audioSource[i].volume = _options.MasterSound;
+            }
+        }
     }
 
     void Update()

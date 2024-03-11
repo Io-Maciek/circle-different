@@ -9,6 +9,7 @@ public static class SaveNumber
     {
         _GAME_SAVE.SceneNumber = sceneBuildIndexNumber;
         _GAME_SAVE.CheckPointNumber = checkPointNumber;
+        _GAME_SAVE.Save();
 
         if (shouldLoadScene)
         {

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveTowardsPlayer : MonoBehaviour
@@ -11,6 +8,16 @@ public class MoveTowardsPlayer : MonoBehaviour
 
     Vector2 RestDefaultPosition;
     Animator _animator;
+    public float DistanceToPlayerToStartChase = 5.0f;
+
+    public AudioClip[] audioChill;
+    AudioClip selectedAudioChill;
+
+    public AudioClip[] audioAgressive;
+    AudioClip selectedAudioAgressive;
+
+    public AudioClip[] audioSearchingFor;
+    AudioClip selectedAudioSearchingFor;
 
     bool _is_agressive = false;
     public bool IsAgressive
@@ -31,12 +38,33 @@ public class MoveTowardsPlayer : MonoBehaviour
     private float _timeToGoHome = 0.0f;
 
 
+    AudioSource _audioSource;
+
     void Start()
     {
         player_ability = player.GetComponentInParent<BecomeSquareAbility>();
         RestDefaultPosition = transform.position;
         rigid_body = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
+
+        SelectAudioClips();
+    }
+
+
+    void SelectAudioClips()
+    {
+        selectedAudioChill = audioChill[Random.Range(0, audioChill.Length)];
+        selectedAudioAgressive = audioAgressive[Random.Range(0, audioAgressive.Length)];
+        selectedAudioSearchingFor = audioSearchingFor[Random.Range(0, audioSearchingFor.Length)];
+
+        SetAudio(selectedAudioChill);
+    }
+
+    void SetAudio(AudioClip audioSource) 
+    {
+        _audioSource.clip = audioSource;
+        _audioSource.Play();
     }
 
 
@@ -49,24 +77,29 @@ public class MoveTowardsPlayer : MonoBehaviour
         {
             var _player_pos = player.transform.position;
             float distance = Vector3.Distance(transform.position, _player_pos);
-            if (distance < 8.0f && player_ability.IsCircle)
+            if (distance < DistanceToPlayerToStartChase && player_ability.IsCircle)
             {
                 _last_known_player_pos = _player_pos;
                 if (!IsAgressive)
                 {
                     IsAgressive = true;
+                    SetAudio(selectedAudioAgressive);
                 }
             }
             else if (IsAgressive)
             {
                 _timeToGoHome = Time.time + SecondsTimeToWaitAfterLoosingPlayer;
                 IsAgressive = false;
+                SetAudio(selectedAudioChill);
             }
         }
         catch (MissingReferenceException)
         {
             if (IsAgressive)
+            {
                 IsAgressive = false;
+                SetAudio(selectedAudioChill);
+            }
         }
     }
 
@@ -79,6 +112,8 @@ public class MoveTowardsPlayer : MonoBehaviour
         }else if(_now_time < _timeToGoHome)
         {
             rigid_body.velocity = Vector3.zero;
+            if(_audioSource.clip != selectedAudioSearchingFor)
+                SetAudio(selectedAudioSearchingFor);
             //SearchLastKnownPosition();
         }
         else if (!_reached_home)
@@ -115,7 +150,10 @@ public class MoveTowardsPlayer : MonoBehaviour
         if (AchivedPosition(RestDefaultPosition))
         {
             if (!_reached_home)
+            {
                 _reached_home = true;
+                SetAudio(selectedAudioChill);
+            }
         }
         else
         {

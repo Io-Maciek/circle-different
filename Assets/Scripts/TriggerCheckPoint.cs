@@ -6,6 +6,11 @@ public class TriggerCheckPoint : MonoBehaviour
 {
     public int CheckPointNumber;
 
+    private void Start()
+    {
+        //Physics.IgnoreLayerCollision(3,0);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.transform.parent != null)
@@ -13,7 +18,7 @@ public class TriggerCheckPoint : MonoBehaviour
             var trigger = other.transform.parent.GetComponentInParent<PlayerCheckpoints>();
             if (trigger != null)
             {
-                other.transform.parent.GetComponentInParent<BecomeSquareAbility>().AbilityUsage = 1.0f; ;
+                other.transform.parent.GetComponentInParent<BecomeSquareAbility>().AbilityUsage = 1.0f;
                 trigger.CheckPointTriggerEnter(CheckPointNumber);
             }
         }
