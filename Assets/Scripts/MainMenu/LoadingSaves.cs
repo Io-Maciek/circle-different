@@ -94,6 +94,7 @@ public class LoadingSaves : MonoBehaviour
         if(Time.time >= NextCheckTime)
         {
             Debug.Log("===Next check===");
+            SavedGames = new Game[3] { null, null, null };
             CheckDirectoryAndSaves();
         }
     }
