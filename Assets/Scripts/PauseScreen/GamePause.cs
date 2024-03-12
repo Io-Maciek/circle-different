@@ -71,8 +71,9 @@ public class GamePause : MonoBehaviour
 
     public void HidePauseMenu()
     {
-        Time.timeScale = 1.0f;
+        _ability.AbilitySliderMeter.gameObject.SetActive(true);
         _ability.enabled = true;
+        Time.timeScale = 1.0f;
         OptionsScreen.GetComponent<OptionsScript>().OptionsApply();
         OptionsScreen.SetActive(false);
         DefaultScreen.SetActive(true);
@@ -83,6 +84,7 @@ public class GamePause : MonoBehaviour
     private void ShowPauseMenu()
     {
         Time.timeScale = 0.0f;
+        _ability.AbilitySliderMeter.gameObject.SetActive(false);
         _ability.enabled = false;
         PauseScreen.SetActive(true);
         isPaused = true;
