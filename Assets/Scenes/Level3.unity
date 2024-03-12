@@ -4374,6 +4374,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 5433006048173520454}
+    - target: {fileID: 4616664274636573732, guid: c3218c2c76dbac041a240cdf33c305cd, type: 3}
+      propertyPath: lengthInSec
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616664274636573732, guid: c3218c2c76dbac041a240cdf33c305cd, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 5936454516892216316, guid: c3218c2c76dbac041a240cdf33c305cd, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.5
