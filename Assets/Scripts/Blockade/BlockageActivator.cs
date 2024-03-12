@@ -16,63 +16,27 @@ public class BlockageActivator : MonoBehaviour
     Vector3 _default_scale;
     BoxCollider2D _boxCollider;
 
+    public AudioClip buttonOnClickSound;
+    public AudioClip buttonOffClickSound;
+
+    AudioSource _audio;
+
     private void Start()
     {
         _boxCollider = GetComponent<BoxCollider2D>();
         _default_scale_collider = _boxCollider.size;
         _boxCollider.size = _default_scale_collider * _object_scaler;
         _default_scale = transform.localScale;
+        _audio = GetComponent<AudioSource>();
     }
-
-
-    /*    private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (CheckIfPlayer(collision))
-            {
-                _player_activated = true;
-            }
-            else
-            {
-                HowManyTimesActivated++;
-            }
-
-            if (!IsActive)
-            {
-                IsActive = true;
-                transform.localScale = _default_scale * _object_scaler;
-                _boxCollider.size = _default_scale_collider;
-                Blockage.Open();
-            }
-
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (CheckIfPlayer(collision))
-            {
-                _player_activated = false;
-            }
-            else
-            {
-                HowManyTimesActivated--;
-            }
-
-            if(IsActive && HowManyTimesActivated == 0 && !_player_activated)
-            {
-                IsActive = false;
-                transform.localScale = _default_scale;
-                _boxCollider.size = _default_scale_collider * _object_scaler;
-                Blockage.Close();
-            }
-
-        }*/
-
 
     public void Enter()
     {
         HowManyTimesActivated++;
         if (!IsActive)
         {
+            _audio.clip = buttonOnClickSound;
+            _audio.Play();
             IsActive = true;
             transform.localScale = _default_scale * _object_scaler;
             _boxCollider.size = _default_scale_collider;
@@ -87,6 +51,8 @@ public class BlockageActivator : MonoBehaviour
 
         if (IsActive && HowManyTimesActivated == 0)
         {
+            _audio.clip = buttonOffClickSound;
+            _audio.Play();
             IsActive = false;
             transform.localScale = _default_scale;
             _boxCollider.size = _default_scale_collider * _object_scaler;
