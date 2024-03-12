@@ -16,11 +16,16 @@ public class Level1Instructions : MonoBehaviour
         Time.timeScale = 0.0f;
         _ability.enabled = false;
         _pause.enabled = false;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void _close_instructions()
     {
         Time.timeScale = 1.0f;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         _ability.enabled = true;
         _pause.enabled = true;
         Destroy(gameObject);

@@ -27,5 +27,8 @@ public class ActivateDeath : MonoBehaviour
         Destroy(_player);
         DeathScreen.SetActive(true);
         Time.timeScale = 0.3f;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 }
