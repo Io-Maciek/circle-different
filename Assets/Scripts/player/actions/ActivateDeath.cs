@@ -9,14 +9,17 @@ public class ActivateDeath : MonoBehaviour
     public GameObject abilityBar;
 
     GameObject _player;
+    AudioSource _audio;
 
     private void Start()
     {
         _player = GetComponent<camera_movement>().player;
+        _audio = GetComponent<AudioSource>();
     }
 
     public void Die()
     {
+        _audio.Play();
         gamePause.HidePauseMenu();
         gamePause.enabled = false;
         abilityBar.SetActive(false);
