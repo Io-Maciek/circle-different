@@ -28,7 +28,6 @@ public class PlayerCheckpoints : MonoBehaviour
         player.transform.position = CheckpointPosition[SaveNumber._GAME_SAVE.CheckPointNumber];
         GetComponent<camera_movement>().camera.transform.position = CheckpointPosition[SaveNumber._GAME_SAVE.CheckPointNumber];
 
-        Debug.Log(LastCheckpointIndex);
         if(instructions != null && LastCheckpointIndex == 0)
         {
             instructions.SetActive(true);

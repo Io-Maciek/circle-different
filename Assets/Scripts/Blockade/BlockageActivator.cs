@@ -52,16 +52,11 @@ public class BlockageActivator : MonoBehaviour
 
     bool CheckIfPlayer(Collider2D collision)
     {
+        Debug.Log($"{collision.gameObject.name}\t{collision.transform.parent.gameObject.name}");
         if (collision.transform.parent == null)
         {
             return false;
         }
         return collision.transform.parent.gameObject.name == "PlayerObject";
-    }
-
-
-    void Update()
-    {
-        
     }
 }
