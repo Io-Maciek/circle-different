@@ -6,6 +6,7 @@ public class ActivateDeath : MonoBehaviour
 {
     public GameObject DeathScreen;
     public GamePause gamePause;
+    public GameObject abilityBar;
 
     GameObject _player;
 
@@ -18,6 +19,7 @@ public class ActivateDeath : MonoBehaviour
     {
         gamePause.HidePauseMenu();
         gamePause.enabled = false;
+        abilityBar.SetActive(false);
 
         Destroy(_player);
         DeathScreen.SetActive(true);

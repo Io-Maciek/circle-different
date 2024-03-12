@@ -39,7 +39,7 @@ public class PlayerCheckpoints : MonoBehaviour
     {
         if (checkpoint_number > LastCheckpointIndex)
         {
-            Debug.Log("NOWY LEPSZY CHECK POINT "+checkpoint_number +"\t\t(from file PlayerCheckpoints.cs)");
+            //Debug.Log("NOWY LEPSZY CHECK POINT "+checkpoint_number +"\t\t(from file PlayerCheckpoints.cs)");
             LastCheckpointIndex = checkpoint_number;
             SaveNumber._GAME_SAVE.CheckPointNumber = LastCheckpointIndex;
             SaveNumber._GAME_SAVE.Save();

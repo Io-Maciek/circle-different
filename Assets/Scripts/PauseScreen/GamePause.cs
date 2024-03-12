@@ -10,6 +10,7 @@ public class GamePause : MonoBehaviour
 
     List<AudioSource> audioSource;
     List<float> audioLevels;
+    public BecomeSquareAbility _ability;
 
     public GameObject DefaultScreen;
     public GameObject Hider;
@@ -71,6 +72,7 @@ public class GamePause : MonoBehaviour
     public void HidePauseMenu()
     {
         Time.timeScale = 1.0f;
+        _ability.enabled = true;
         OptionsScreen.GetComponent<OptionsScript>().OptionsApply();
         OptionsScreen.SetActive(false);
         DefaultScreen.SetActive(true);
@@ -81,6 +83,7 @@ public class GamePause : MonoBehaviour
     private void ShowPauseMenu()
     {
         Time.timeScale = 0.0f;
+        _ability.enabled = false;
         PauseScreen.SetActive(true);
         isPaused = true;
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlockageScript : MonoBehaviour
 {
-    bool _is_open = false;
+    protected bool _is_open = false;
 
     public bool DefaultActionToOpen = true;
 
@@ -18,7 +18,7 @@ public class BlockageScript : MonoBehaviour
         }
     }
 
-    public void Open()
+    public virtual void Open()
     {
         if (!_is_open)
         {
@@ -42,7 +42,7 @@ public class BlockageScript : MonoBehaviour
         }
     }
 
-    public void Close()
+    public virtual void Close()
     {
         if (_is_open)
         {

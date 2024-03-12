@@ -32,10 +32,19 @@ public class BecomeSquareAbility : MonoBehaviour
 
     public bool IsPenalty = false;
 
+    void ChangeSliderColor(Color color)
+    {
+        _fill_area.color = color;
+    }
+
+    private Image _fill_area;
+    private Color _fill_area_color;
 
     void Start()
     {
         playerObjectController = GetComponent<camera_movement>().player.GetComponent<PlayerObjectController>();
+        _fill_area = AbilitySliderMeter.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>();
+        _fill_area_color = _fill_area.color;
     }
 
     void Update()
@@ -52,6 +61,7 @@ public class BecomeSquareAbility : MonoBehaviour
                 //AbilityUsageNextTime = Time.time + AbilityCooldown;
                 IsCircle = true;
                 IsPenalty = true;
+                ChangeSliderColor(Color.red);
             }
             else
             {
@@ -73,7 +83,10 @@ public class BecomeSquareAbility : MonoBehaviour
             {
                 HideMeterUI();
                 if (IsPenalty)
+                {
+                    ChangeSliderColor(_fill_area_color);
                     IsPenalty = false;
+                }
             }
         }
 
