@@ -68,7 +68,10 @@ public class OptionsScript : MonoBehaviour
 
     public void OptionsApply()
     {
-        _options.Apply();
+        try
+        {
+            _options.Apply();
+        }catch(Exception) { }
 
         for (int i = 0; i < audioSource.Count; i++)
         {
