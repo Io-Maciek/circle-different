@@ -34,11 +34,28 @@ namespace Assets.Scripts.Game
 
         public void Save()
         {
-            var docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var game_dir = Path.Combine(docs, "CirclingDifferent");
-            var save_dir = Path.Combine(game_dir, Name);
+            try
+            {
+                var docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                var game_dir = Path.Combine(docs, "CirclingDifferent");
+                var save_dir = Path.Combine(game_dir, Name);
 
-            File.WriteAllText(save_dir, IoFile.WriteToString(this));
+                File.WriteAllText(save_dir, IoFile.WriteToString(this));
+            }
+            catch (Exception) { }
+        }
+
+        internal void Delete()
+        {
+            try
+            {
+                var docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                var game_dir = Path.Combine(docs, "CirclingDifferent");
+                var save_dir = Path.Combine(game_dir, Name);
+
+                File.Delete(save_dir);
+            }
+            catch (Exception) { }
         }
     }
 }

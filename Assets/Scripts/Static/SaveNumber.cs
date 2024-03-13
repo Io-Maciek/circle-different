@@ -7,6 +7,9 @@ public static class SaveNumber
 
     public static void UpdateToNextScene(uint sceneBuildIndexNumber, int checkPointNumber = 0, bool shouldLoadScene = false)
     {
+        if (_GAME_SAVE == null)
+            return;
+
         _GAME_SAVE.SceneNumber = sceneBuildIndexNumber;
         _GAME_SAVE.CheckPointNumber = checkPointNumber;
         _GAME_SAVE.Save();
@@ -15,5 +18,14 @@ public static class SaveNumber
         {
             SceneManager.LoadSceneAsync((int)sceneBuildIndexNumber);
         }
+    }
+
+    public static void Delete()
+    {
+        if (_GAME_SAVE == null)
+            return;
+
+        _GAME_SAVE.Delete();
+        _GAME_SAVE = null;
     }
 }
