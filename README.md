@@ -1,1 +1,1 @@
-# Game playable at [itch.io](https://io-maciek.itch.io/circling-different)
+# Game playable on [itch.io](https://io-maciek.itch.io/circling-different).
