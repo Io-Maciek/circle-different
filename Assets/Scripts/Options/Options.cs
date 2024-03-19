@@ -9,6 +9,7 @@ public class Options
     const string _RESOLUTION = "resolution_player_prefs";
     const string _MASTER_SOUND = "master_sound_player_prefs";
 
+
     public bool IsFullScreen { 
         get 
         {
@@ -47,7 +48,6 @@ public class Options
     public void Apply()
     {
         FullScreenMode fullscreen_mode;
-        var resolutions = ScreenResolution.ResolutionFromString(Resolution);
 
         if (IsFullScreen)
         {
@@ -58,7 +58,12 @@ public class Options
             fullscreen_mode = FullScreenMode.Windowed;
         }
 
+#if UNITY_WEBGL
+        Screen.fullScreenMode = fullscreen_mode;
+#else
+        var resolutions = ScreenResolution.ResolutionFromString(Resolution);
         Screen.SetResolution(resolutions.Item1, resolutions.Item2, fullscreen_mode);
+#endif
     }
 }
 

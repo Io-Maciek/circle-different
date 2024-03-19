@@ -52,7 +52,10 @@ public class LoadingSaves : MonoBehaviour
 
     private string CheckExistanceOfGameDirectory()
     {
-        var docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+#if UNITY_WEBGL
+        return "";
+#else
+        var docs = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         var game_dir = Path.Combine(docs, "CirclingDifferent");
 
         if (!Directory.Exists(game_dir))
@@ -61,10 +64,18 @@ public class LoadingSaves : MonoBehaviour
         }
 
         return game_dir;
+#endif
+
     }
 
     private bool CheckExistanceOfSaveFile(int saveIndex, string game_dir_path)
     {
+#if UNITY_WEBGL
+        var save_file = Path.Combine(game_dir_path, $"save{saveIndex}.io");
+        SavedGames[saveIndex] = IoFile.ReadFromString<Game>(PlayerPrefs.GetString($"save{saveIndex}.io", "|||"));
+        PlayerPrefs.Save();
+        return SavedGames[saveIndex] != null;
+#else
         var save_file = Path.Combine(game_dir_path, $"save{saveIndex}.io");
 
         if (!File.Exists(save_file))
@@ -89,6 +100,8 @@ public class LoadingSaves : MonoBehaviour
 
 
         return true;
+#endif
+
     }
 
     private void Update()

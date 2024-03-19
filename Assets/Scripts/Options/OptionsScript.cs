@@ -68,6 +68,7 @@ public class OptionsScript : MonoBehaviour
 
     public void OptionsApply()
     {
+        PlayerPrefs.Save();
         try
         {
             _options.Apply();
@@ -84,6 +85,7 @@ public class OptionsScript : MonoBehaviour
                 audioSource[i].volume = _options.MasterSound;
             }
         }
+
     }
 
     private void _close_options()
