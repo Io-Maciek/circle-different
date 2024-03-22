@@ -13,6 +13,9 @@ public class camera_movement : MonoBehaviour
     Vector2 _last_player_pos;
 
     public GameObject JustAudio;
+    public GameObject AbilityMeter;
+
+    public Vector3 Offset = Vector3.zero;
 
 
     private void Start()
@@ -27,6 +30,8 @@ public class camera_movement : MonoBehaviour
         {
             JustAudio.transform.position = player.transform.position;
             _last_player_pos = player.transform.position;
+
+            AbilityMeter.transform.position= new Vector3(player.transform.position.x + Offset.x, player.transform.position.y+ Offset.y, player.transform.position.z+ Offset.z) ;
         }
         catch (MissingReferenceException) { }
     }
